@@ -1,38 +1,215 @@
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Menu, Moon, Sun, Github, Linkedin, Globe } from 'lucide-react'
+import { Typewriter } from 'react-simple-typewriter'
+import { motion } from 'framer-motion'
 import './App.css'
 
-import Home from './pages/Home.jsx'
-import Projects from './pages/Projects.jsx'
-import Skills from './pages/Skills.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
-
 function App() {
+  const [theme, setTheme] = useState('dark')
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === 'dark') root.classList.add('dark')
+    else root.classList.remove('dark')
+  }, [theme])
+
   return (
-    <div className="app-container">
-      <header className="site-header">
-        <div className="brand">My Portfolio</div>
-        <nav className="nav">
-          <NavLink to="/" end>Home</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/skills">Skills</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-        </nav>
+    <div className="min-h-dvh bg-background text-text dark:bg-background">
+      <header className="sticky top-0 z-40 backdrop-blur bg-background/70 border-b border-white/10">
+        <div className="max-w-[1200px] mx-auto px-4 py-4 flex items-center justify-between">
+          <a href="#home" className="font-semibold">Avay Choudhary Kurmi</a>
+          <nav className="hidden md:flex gap-6">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div className="flex items-center gap-2">
+            <button aria-label="Toggle theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded border border-white/15 hover:border-accent/60 transition-colors">
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button className="md:hidden p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+              <Menu />
+            </button>
+          </div>
+        </div>
+        {menuOpen && (
+          <div className="md:hidden px-4 pb-3 flex flex-col gap-2">
+            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+            <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+            <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+            <a href="#experience" onClick={() => setMenuOpen(false)}>Experience</a>
+            <a href="#achievements" onClick={() => setMenuOpen(false)}>Achievements</a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+          </div>
+        )}
       </header>
-      <main className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+
+      <main className="max-w-[1200px] mx-auto px-4">
+        {/* Hero */}
+        <section id="home" className="py-16 md:py-24">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+              <p className="text-accent font-mono">Hi, I’m</p>
+              <h1 className="text-4xl md:text-6xl font-bold mt-2">Avay Choudhary Kurmi</h1>
+              <h2 className="mt-2 text-xl text-accent">
+                <Typewriter words={[
+                  'Full Stack Developer',
+                  'AI & ML Enthusiast',
+                  'Problem Solver',
+                ]} loop={true} cursor cursorStyle="_" typeSpeed={70} deleteSpeed={40} delaySpeed={1400} />
+              </h2>
+              <p className="mt-4 opacity-85 text-lg max-w-prose">I build responsive, accessible, and performant web applications with modern JavaScript, React, and backend services.</p>
+              <div className="mt-8 flex gap-3">
+                <a href="#projects" className="px-5 py-2.5 rounded border border-accent text-accent hover:bg-accent/10 transition">View Projects</a>
+                <a href="/resume.pdf" className="px-5 py-2.5 rounded border border-white/20 hover:border-accent/60 transition">Download Resume</a>
+              </div>
+              <div className="mt-6 flex gap-4 opacity-90">
+                <a href="https://github.com/kurmiz" target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a>
+                <a href="https://linkedin.com/in/avay-choudhary-kurmi-773b26303" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a>
+                <a href="http://kurmiabhay.com.np" target="_blank" rel="noreferrer" aria-label="Portfolio"><Globe /></a>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-accent/20 blur-3xl rounded-full -z-10" />
+              <div className="h-60 md:h-80 rounded-2xl glass flex items-center justify-center">
+                <span className="font-mono opacity-80">Dark Tech Theme</span>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* About */}
+        <section id="about" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">About</h3>
+            <p className="mt-3 max-w-prose opacity-85">I am a developer focused on building practical projects and learning modern web development. I enjoy solving problems and continuously improving my skills.</p>
+            <div className="mt-6 grid md:grid-cols-2 gap-6">
+              <div className="glass p-5">
+                <h4 className="font-semibold">Education</h4>
+                <ul className="mt-2 space-y-2 text-sm opacity-90">
+                  <li><span className="font-mono text-accent">2021–2025</span> — Jain Deemed-to-be University, B.Tech CSE</li>
+                  <li><span className="font-mono text-accent">Completed 2021</span> — Global School of Science, +2 Science</li>
+                </ul>
+                <a href="/resume.pdf" className="inline-block mt-3 px-3 py-1.5 rounded border border-white/15">Download Resume</a>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">Skills</h3>
+            <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { title: 'Languages', items: ['Python', 'Java', 'JavaScript', 'SQL', 'PHP'] },
+                { title: 'Frameworks', items: ['React', 'Node.js', 'Express'] },
+                { title: 'Databases', items: ['MongoDB', 'MySQL'] },
+                { title: 'Tools', items: ['Git', 'Docker', 'Vercel', 'Netlify', 'Render'] },
+                { title: 'Concepts', items: ['REST API', 'WebSocket', 'Agile Development'] },
+              ].map((grp) => (
+                <div key={grp.title} className="glass p-5">
+                  <h4 className="font-semibold mb-2">{grp.title}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {grp.items.map((it) => (
+                      <span key={it} className="px-2 py-1 text-sm rounded border border-white/15">{it}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Projects */}
+        <section id="projects" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">Projects</h3>
+            <div className="mt-4 text-sm opacity-80">Filters: All · Web · AI/ML · Chatbots</div>
+            <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { t: 'Civic Report System', s: 'Full-stack civic issue reporting with geolocation tagging', tags: ['MERN'] },
+                { t: 'Full Stack Tour and Travel Website', s: 'Booking and itinerary management web app', tags: ['Web'] },
+                { t: 'Object Detection (YONO)', s: 'Python-based object detection pipeline', tags: ['AI/ML'] },
+                { t: 'Assistant Chatbot', s: 'Conversational assistant with intents and context', tags: ['Chatbots'] },
+                { t: 'Brain Tumor Detection', s: 'ML model for tumor classification', tags: ['AI/ML'] },
+                { t: 'Dental Clinic Website', s: 'Responsive clinic website', tags: ['Web'] },
+              ].map((p) => (
+                <article key={p.t} className="glass p-5">
+                  <h4 className="font-semibold">{p.t}</h4>
+                  <p className="mt-1 text-sm opacity-85">{p.s}</p>
+                  <div className="mt-2 flex gap-2 text-xs opacity-80">
+                    {p.tags.map((tg) => <span key={tg} className="px-2 py-0.5 rounded border border-white/15">{tg}</span>)}
+                  </div>
+                  <div className="mt-3 flex gap-3 text-sm">
+                    <a className="link-accent" href="#" target="_blank" rel="noreferrer">Demo</a>
+                    <a className="link-accent" href="#" target="_blank" rel="noreferrer">Code</a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Experience */}
+        <section id="experience" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">Experience & Internships</h3>
+            <div className="mt-6 grid md:grid-cols-2 gap-6">
+              <div className="glass p-5">
+                <h4 className="font-semibold">RKM THE WEB BUILDER — Web Dev Intern</h4>
+                <p className="text-sm opacity-80">Feb–Mar 2024</p>
+                <p className="mt-2 text-sm opacity-85">Built responsive front-ends with HTML, CSS, JavaScript.</p>
+              </div>
+              <div className="glass p-5">
+                <h4 className="font-semibold">Jain (Deemed-to-be) University — Full Stack Dev Intern</h4>
+                <p className="text-sm opacity-80">Jan–May 2025</p>
+                <p className="mt-2 text-sm opacity-85">Developed civic report web app with geolocation; implemented chatbots; deployed MERN apps.</p>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Achievements */}
+        <section id="achievements" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">Achievements & Research</h3>
+            <ul className="mt-4 space-y-3">
+              <li className="glass p-5">
+                <span className="font-semibold">Research Paper:</span> Predicting Health Insurance Charges using ML (2024)
+              </li>
+            </ul>
+          </motion.div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h3 className="text-2xl font-semibold">Contact</h3>
+            <p className="mt-2 opacity-85">I’m open to internships and freelance opportunities. Let’s connect.</p>
+            <form className="mt-6 grid gap-3 max-w-lg" action="https://formspree.io/f/your-form-id" method="POST">
+              <input className="px-3 py-2 rounded bg-white/5 border border-white/10 focus:outline-none focus:border-accent/70" placeholder="Name" name="name" required />
+              <input type="email" className="px-3 py-2 rounded bg-white/5 border border-white/10 focus:outline-none focus:border-accent/70" placeholder="Email" name="email" required />
+              <textarea className="px-3 py-2 rounded bg-white/5 border border-white/10 focus:outline-none focus:border-accent/70" placeholder="Message" name="message" rows="5" required />
+              <button type="submit" className="justify-self-start px-5 py-2.5 rounded border border-accent text-accent hover:bg-accent/10 transition">Send</button>
+            </form>
+          </motion.div>
+          <div className="mt-6 flex gap-3 opacity-90">
+            <a href="https://github.com/kurmiz" target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a>
+            <a href="https://linkedin.com/in/avay-choudhary-kurmi-773b26303" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a>
+            <a href="http://kurmiabhay.com.np" target="_blank" rel="noreferrer" aria-label="Portfolio"><Globe /></a>
+      </div>
+        </section>
       </main>
-      <footer className="site-footer">
-        <p>© {new Date().getFullYear()} Your Name</p>
+
+      <footer className="border-t border-white/10 py-6 text-center opacity-80">
+        © {new Date().getFullYear()} Avay Choudhary Kurmi
       </footer>
-    </div>
+      </div>
   )
 }
 
