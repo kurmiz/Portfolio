@@ -34,12 +34,12 @@ function App() {
 
   const projectTags = ['All', 'Web', 'AI/ML', 'Chatbots', 'MERN']
   const projects = [
-    { t: 'Civic Report System', s: 'Full-stack civic issue reporting with geolocation tagging', tags: ['MERN'] },
-    { t: 'Full Stack Tour and Travel Website', s: 'Booking and itinerary management web app', tags: ['Web'] },
-    { t: 'Object Detection (YONO)', s: 'Python-based object detection pipeline', tags: ['AI/ML'] },
-    { t: 'Assistant Chatbot', s: 'Conversational assistant with intents and context', tags: ['Chatbots'] },
-    { t: 'Brain Tumor Detection', s: 'ML model for tumor classification', tags: ['AI/ML'] },
-    { t: 'Dental Clinic Website', s: 'Responsive clinic website', tags: ['Web'] },
+    { t: 'Civic Report System', s: 'Full-stack civic issue reporting with geolocation tagging', tags: ['MERN'], demo: '#', code: '#' },
+    { t: 'Full Stack Tour and Travel Website', s: 'Booking and itinerary management web app', tags: ['Web'], demo: '#', code: '#' },
+    { t: 'Object Detection (YONO)', s: 'Python-based object detection pipeline', tags: ['AI/ML'], demo: '#', code: '#' },
+    { t: 'Assistant Chatbot', s: 'Conversational assistant with intents and context', tags: ['Chatbots'], demo: '#', code: '#' },
+    { t: 'Brain Tumor Detection', s: 'ML model for tumor classification', tags: ['AI/ML'], demo: '#', code: '#' },
+    { t: 'Dental Clinic Website', s: 'Responsive clinic website', tags: ['Web'], demo: 'https://dental-websites.vercel.app/', code: '#' },
   ]
   const filteredProjects = projectFilter === 'All'
     ? projects
@@ -79,7 +79,15 @@ function App() {
               <p className="mt-4 opacity-85 text-lg max-w-prose">I build responsive, accessible, and performant web applications with modern JavaScript, React, and backend services.</p>
               <div className="mt-8 flex gap-3">
                 <a href="#projects" className="btn btn-accent">View Projects</a>
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} href="/resume.pdf" className="btn btn-ghost">
+                <motion.a 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.98 }} 
+                  href="/portfolio/Avay_Choudhary_Kurmi_Resume(U).pdf"
+                  className="btn btn-ghost"
+                  download="Avay_Choudhary_Kurmi_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Download size={18} />
                   <span>Download Resume</span>
                 </motion.a>
@@ -195,8 +203,24 @@ function App() {
                     {p.tags.map((tg) => <span key={tg} className="px-2 py-0.5 rounded border border-white/15">{tg}</span>)}
                   </div>
                   <div className="mt-3 flex gap-3 text-sm">
-                    <a className="link-accent" href="#" target="_blank" rel="noreferrer">Demo</a>
-                    <a className="link-accent" href="#" target="_blank" rel="noreferrer">Code</a>
+                    <a 
+                      className={`link-accent ${p.demo === '#' ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'}`} 
+                      href={p.demo} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => p.demo === '#' && e.preventDefault()}
+                    >
+                      Demo
+                    </a>
+                    <a 
+                      className={`link-accent ${p.code === '#' ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'}`}
+                      href={p.code} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => p.code === '#' && e.preventDefault()}
+                    >
+                      Code
+                    </a>
                   </div>
                 </motion.article>
               ))}
