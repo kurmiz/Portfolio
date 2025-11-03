@@ -15,8 +15,11 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement
-    if (theme === 'dark') root.classList.add('dark')
-    else root.classList.remove('dark')
+    if (theme === 'dark') {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
   }, [theme])
 
   useEffect(() => {
@@ -347,7 +350,11 @@ function App() {
             <Link to="/faq" className="hover:text-accent transition-colors">FAQ</Link>
           </nav>
           <div className="flex items-center gap-2">
-            <button aria-label="Toggle theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded border border-white/15 hover:border-accent/60 transition-colors">
+            <button 
+              aria-label="Toggle theme" 
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} 
+              className="p-2 rounded border border-white/15 hover:border-accent/60 transition-colors"
+            >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button className="md:hidden p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">

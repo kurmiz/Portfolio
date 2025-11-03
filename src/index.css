@@ -6,25 +6,24 @@ html { scroll-behavior: smooth; }
 body { margin: 0; }
 
 :root {
-	--accent-color: #64ffd6; /* teal-ish */
-	--accent-foreground: #001219;
-	--gradient-start: rgba(6, 10, 20, 1);
-	--gradient-end: rgba(12, 18, 30, 1);
+  --accent-color: #64ffd6;
+  --accent-foreground: #001219;
+  --gradient-start: rgba(6, 10, 20, 1);
+  --gradient-end: rgba(12, 18, 30, 1);
 }
 
-/* subtle page background gradient to add depth */
 body {
-	background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
 }
 
 /* Buttons */
 .btn { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 0.5rem; transition: transform 150ms ease, box-shadow 200ms ease, background-color 200ms ease, border-color 200ms ease; will-change: transform; }
 .btn:hover { transform: translateY(-1px) scale(1.02); }
 .btn:active { transform: translateY(0); }
-.btn-accent { border: 1px solid theme(colors.accent / 1); color: theme(colors.accent / 1); background: transparent; }
-.btn-accent:hover { background: color-mix(in oklab, theme(colors.accent / 1) 10%, transparent); box-shadow: 0 8px 24px rgba(100,255,218,0.12); }
-.btn-ghost { border: 1px solid rgba(255,255,255,0.15); color: inherit; background: rgba(255,255,255,0.02); }
-.btn-ghost:hover { border-color: rgba(100,255,218,0.6); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+.btn-accent { border: 1px solid var(--accent-color); color: var(--accent-color); background: transparent; }
+.btn-accent:hover { background: rgba(100, 255, 214, 0.1); box-shadow: 0 8px 24px rgba(100,255,218,0.12); }
+.btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+.btn-ghost:hover { border-color: var(--accent-color); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
 
 /* Shimmer on hover */
 .btn::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.2) 20%, transparent 40%); transform: translateX(-150%); transition: transform 600ms ease; }
