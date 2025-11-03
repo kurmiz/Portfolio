@@ -1,22 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense, lazy } from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
 import { Menu, Moon, Sun, Github, Linkedin, Globe, Download } from 'lucide-react'
 import { Typewriter } from 'react-simple-typewriter'
 import { motion } from 'framer-motion'
 import './App.css'
-import Chatbot from './components/Chatbot.jsx'
-import FAQ from './pages/FAQ.jsx'
+const Chatbot = lazy(() => import('./components/Chatbot.jsx'))
+const FAQ = lazy(() => import('./pages/FAQ.jsx'))
 
 function App() {
   const [theme, setTheme] = useState('dark')
   const [menuOpen, setMenuOpen] = useState(false)
   const [projectFilter, setProjectFilter] = useState('All')
+  const [scrollPct, setScrollPct] = useState(0)
 
   useEffect(() => {
     const root = document.documentElement
     if (theme === 'dark') root.classList.add('dark')
     else root.classList.remove('dark')
   }, [theme])
+
+  useEffect(() => {
+    function onScroll() {
+      const scrolled = window.scrollY || window.pageYOffset
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const pct = docHeight > 0 ? Math.round((scrolled / docHeight) * 100) : 0
+      setScrollPct(pct)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Shared motion variants for staggered entrances
   const containerVariants = {
@@ -62,6 +75,7 @@ function App() {
                   <img
                     src="/portfolio/photos.jpg"
                     alt="Avay Choudhary Kurmi"
+                    loading="lazy"
                     className="object-cover w-full h-full hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
                       e.target.onerror = null;
@@ -77,20 +91,47 @@ function App() {
                 <Typewriter words={['Full Stack Developer','AI & ML Enthusiast','Problem Solver']} loop={true} cursor cursorStyle="_" typeSpeed={70} deleteSpeed={40} delaySpeed={1400} />
               </h2>
               <p className="mt-4 opacity-85 text-lg max-w-prose">I build responsive, accessible, and performant web applications with modern JavaScript, React, and backend services.</p>
+              {/* Tech stack badges */}
+              <div className="mt-4 flex flex-wrap gap-3 items-center">
+                <span className="tech-badge" title="React">
+                  <svg width="16" height="16" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                    <g fill="#61DAFB">
+                      <path d="M64 45.9a18.1 18.1 0 1 0 0 36.2 18.1 18.1 0 0 0 0-36.2z"/>
+                    </g>
+                    <g stroke="#61DAFB" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none">
+                      <ellipse cx="64" cy="64" rx="48" ry="16"/>
+                      <ellipse cx="64" cy="64" rx="48" ry="16" transform="rotate(60 64 64)"/>
+                      <ellipse cx="64" cy="64" rx="48" ry="16" transform="rotate(120 64 64)"/>
+                    </g>
+                  </svg>
+                  <span>React</span>
+                </span>
+
+                <span className="tech-badge" title="Node.js">
+                  <svg width="16" height="16" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                    <path fill="#68A063" d="M64 10L108 32v64L64 118 20 96V32z"/>
+                    <path fill="#fff" d="M64 38v52l22-13V51z" opacity=".1"/>
+                  </svg>
+                  <span>Node.js</span>
+                </span>
+
+                <span className="tech-badge" title="MongoDB">
+                  <svg width="16" height="16" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                    <path fill="#47A248" d="M64 10s18 18 18 34c0 24-18 44-18 44s-18-20-18-44C46 28 64 10 64 10z"/>
+                    <path fill="#7AC142" d="M64 54s12 10 12 20c0 14-12 26-12 26s-12-12-12-26c0-10 12-20 12-20z"/>
+                  </svg>
+                  <span>MongoDB</span>
+                </span>
+              </div>
               <div className="mt-8 flex gap-3">
-                <a href="#projects" className="btn btn-accent">View Projects</a>
-                <motion.a 
-                  whileHover={{ scale: 1.05 }} 
-                  whileTap={{ scale: 0.98 }} 
-                  href="/portfolio/Avay_Choudhary_Kurmi_Resume(U).pdf"
-                  className="btn btn-ghost"
-                  download="Avay_Choudhary_Kurmi_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Download size={18} />
-                  <span>Download Resume</span>
-                </motion.a>
+                  <a href="#projects" className="btn btn-accent-filled inline-flex items-center gap-2">
+                    <Globe size={16} />
+                    <span>View Projects</span>
+                  </a>
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} href="/portfolio/Avay_Choudhary_Kurmi_Resume(U).pdf" className="btn btn-accent-filled inline-flex items-center gap-2" download="Avay_Choudhary_Kurmi_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download size={18} />
+                    <span>Download Resume</span>
+                  </motion.a>
               </div>
               <div className="mt-6 flex gap-4 opacity-90">
                 <a href="https://github.com/kurmiz" target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a>
@@ -108,8 +149,8 @@ function App() {
         </section>
 
         {/* About */}
-        <section id="about" className="py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <motion.section id="about" className="py-16" initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">About</h3>
             <p className="mt-3 max-w-prose opacity-85">I am a developer focused on building practical projects and learning modern web development. I enjoy solving problems and continuously improving my skills.</p>
             <div className="mt-6 grid md:grid-cols-2 gap-6">
@@ -156,11 +197,11 @@ function App() {
               </div>
             </div>
           </motion.div>
-        </section>
+  </motion.section>
 
         {/* Skills */}
-        <section id="skills" className="py-16">
-          <motion.div variants={containerVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.section id="skills" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Skills</h3>
             <motion.div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -181,11 +222,11 @@ function App() {
               ))}
             </motion.div>
           </motion.div>
-        </section>
+  </motion.section>
 
         {/* Projects */}
-        <section id="projects" className="py-16">
-          <motion.div variants={containerVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.section id="projects" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Projects</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {projectTags.map(tag => (
@@ -226,11 +267,11 @@ function App() {
               ))}
             </motion.div>
           </motion.div>
-        </section>
+  </motion.section>
 
         {/* Experience */}
-        <section id="experience" className="py-16">
-          <motion.div variants={containerVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.section id="experience" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Experience & Internships</h3>
             <motion.div className="mt-6 grid md:grid-cols-2 gap-6">
               <motion.div variants={itemVariants} className="glass p-5">
@@ -245,11 +286,11 @@ function App() {
               </motion.div>
             </motion.div>
           </motion.div>
-        </section>
+  </motion.section>
 
         {/* Achievements */}
-        <section id="achievements" className="py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <motion.section id="achievements" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">Achievements & Research</h3>
             <ul className="mt-4 space-y-3">
               <li className="glass p-5">
@@ -263,11 +304,11 @@ function App() {
               </li>
             </ul>
           </motion.div>
-        </section>
+  </motion.section>
 
         {/* Contact */}
-        <section id="contact" className="py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <motion.section id="contact" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+          <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">Contact</h3>
             <p className="mt-2 opacity-85">I’m open to internships and freelance opportunities. Let’s connect.</p>
             <form className="mt-6 grid gap-3 max-w-lg" action="https://formspree.io/f/your-form-id" method="POST">
@@ -282,16 +323,20 @@ function App() {
             <a href="https://linkedin.com/in/avay-choudhary-kurmi-773b26303" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a>
             <a href="http://kurmiabhay.com.np" target="_blank" rel="noreferrer" aria-label="Portfolio"><Globe /></a>
           </div>
-        </section>
+  </motion.section>
       </main>
     )
   }
 
   return (
     <div className="min-h-dvh bg-background text-text dark:bg-background">
+      {/* Scroll progress bar */}
+      <div className="progress-wrap" aria-hidden>
+        <div className="progress-bar" style={{ width: `${scrollPct}%` }} />
+      </div>
       <header className="sticky top-0 z-40 backdrop-blur bg-background/70 border-b border-white/10 relative">
         <div className="max-w-[1200px] mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="font-semibold">Avay Choudhary Kurmi</Link>
+          <Link to="/" className="font-semibold text-lg md:text-xl">Avay Choudhary Kurmi</Link>
           <nav className="hidden md:flex gap-6">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
@@ -323,15 +368,19 @@ function App() {
           </div>
         )}
       </header>
-      <Routes>
-        <Route path="/" element={<HomeContent />} />
-        <Route path="/faq" element={<FAQ />} />
-      </Routes>
+      <Suspense fallback={<div className="suspense-fallback"><div className="suspense-spinner" aria-hidden></div><div>Loading content…</div></div>}>
+        <Routes>
+          <Route path="/" element={<HomeContent />} />
+          <Route path="/faq" element={<FAQ />} />
+        </Routes>
+      </Suspense>
 
       <footer className="border-t border-white/10 py-6 text-center opacity-80">
         © {new Date().getFullYear()} Avay Choudhary Kurmi
       </footer>
-      <Chatbot />
+      <Suspense fallback={<div className="suspense-fallback"><div className="suspense-spinner" aria-hidden></div><div>Loading chat…</div></div>}>
+        <Chatbot />
+      </Suspense>
       </div>
   )
 }
