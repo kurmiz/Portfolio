@@ -52,6 +52,25 @@ function App() {
         <section id="home" className="py-16 md:py-24">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="grid md:grid-cols-2 gap-10 items-center">
             <div>
+              {/* Photo Section Start */}
+              <div className="mb-6 flex justify-center">
+                <motion.div 
+                  className="w-40 h-40 rounded-full overflow-hidden border-4 border-accent shadow-lg bg-white/10 flex items-center justify-center"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <img
+                    src="/portfolio/photos.jpg"
+                    alt="Avay Choudhary Kurmi"
+                    className="object-cover w-full h-full hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/portfolio/photos.jpg'; // Fallback to second image if first fails
+                    }}
+                  />
+                </motion.div>
+              </div>
+              {/* Photo Section End */}
               <p className="text-accent font-mono">Hi, I’m</p>
               <h1 className="text-4xl md:text-6xl font-bold mt-2 font-display">Avay Choudhary Kurmi</h1>
               <h2 className="mt-2 text-xl text-accent">
