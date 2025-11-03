@@ -1,0 +1,24 @@
+#root { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+.app-container { min-height: 100dvh; display: flex; flex-direction: column; }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+.brand { font-weight: 700; font-size: 1.125rem; }
+.nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+.nav a { text-decoration: none; color: inherit; opacity: 0.8; }
+.nav a.active { font-weight: 600; opacity: 1; border-bottom: 2px solid currentColor; }
+
+.content { flex: 1; padding: 1rem 0 2rem; }
+.site-footer { padding: 1rem 0; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.1); }
+
+section { text-align: left; }
+section h1 { font-size: 2rem; margin: 0 0 0.75rem; }
+section p { line-height: 1.7; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.card { padding: 1rem; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; background: rgba(255,255,255,0.02); }
+.card h3 { margin: 0 0 0.5rem; }
+.actions { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+.actions a { padding: 0.5rem 0.75rem; border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; text-decoration: none; color: inherit; }
+
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.5rem; padding-left: 1rem; }
+.skills li { list-style: disc; }
