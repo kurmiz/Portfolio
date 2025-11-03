@@ -76,13 +76,13 @@ function App() {
                   transition={{ duration: 0.2 }}
                 >
                   <img
-                    src="/portfolio/photos.jpg"
+                    src={import.meta.env.BASE_URL + 'photos.jpg'}
                     alt="Avay Choudhary Kurmi"
                     loading="lazy"
                     className="object-cover w-full h-full hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = '/portfolio/photos.jpg'; // Fallback to second image if first fails
+                      e.target.src = import.meta.env.BASE_URL + 'photos.jpg'; // Fallback to same image
                     }}
                   />
                 </motion.div>
