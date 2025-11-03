@@ -152,7 +152,7 @@ function App() {
         </section>
 
         {/* About */}
-        <motion.section id="about" className="py-16" initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="about" className="py-16" initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">About</h3>
             <p className="mt-3 max-w-prose opacity-85">I am a developer focused on building practical projects and learning modern web development. I enjoy solving problems and continuously improving my skills.</p>
@@ -203,7 +203,7 @@ function App() {
   </motion.section>
 
         {/* Skills */}
-        <motion.section id="skills" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="skills" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Skills</h3>
             <motion.div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -228,7 +228,7 @@ function App() {
   </motion.section>
 
         {/* Projects */}
-        <motion.section id="projects" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="projects" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Projects</h3>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -273,7 +273,7 @@ function App() {
   </motion.section>
 
         {/* Experience */}
-        <motion.section id="experience" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="experience" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div variants={containerVariants}>
             <h3 className="text-2xl font-semibold font-display heading">Experience & Internships</h3>
             <motion.div className="mt-6 grid md:grid-cols-2 gap-6">
@@ -292,7 +292,7 @@ function App() {
   </motion.section>
 
         {/* Achievements */}
-        <motion.section id="achievements" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="achievements" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">Achievements & Research</h3>
             <ul className="mt-4 space-y-3">
@@ -310,7 +310,7 @@ function App() {
   </motion.section>
 
         {/* Contact */}
-        <motion.section id="contact" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }} transition={{ duration: 0.45 }}>
+  <motion.section id="contact" className="py-16" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
           <motion.div>
             <h3 className="text-2xl font-semibold font-display heading">Contact</h3>
             <p className="mt-2 opacity-85">I’m open to internships and freelance opportunities. Let’s connect.</p>
