@@ -15,6 +15,7 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['Roboto Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        display: ['"Space Grotesk"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
